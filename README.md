@@ -1,7 +1,7 @@
 # Instascriptogram #
 
 ## About ##
-Instascriptogram is a script I wrote in combination with IFTTT to allow me to automatically post Instagram photos to a Scriptogr.am blog.
+Instascriptogram is a script I wrote in combination with IFTTT to allow me to automatically post Instagram photos to a [Scriptogr.am](http://scriptogr.am/) blog.
 
 I set up a [rule][ifttt_rule] to watch my own account as well as another for a specific tag. Those pictures would then create a text file in my Dropbox account. The script then looks for these text files, creates a Scriptogram post, and move the text file to a 'logged' folder.
 
