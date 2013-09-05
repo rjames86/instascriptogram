@@ -27,8 +27,8 @@ USER_ID = ""
 NOTIFY_ME = False
 # List of the possible authors. This should correlate with your IFTTT_PATHS
 AUTHOR_NAMES = ['Ryan', 'Steph']
-# Pick who the default author is
-DEFAULT_AUTHOR = ""
+# Pick who the default author is if the folder names don't find an author.
+DEFAULT_AUTHOR = "Ryan"
 
 # Define the tag you used for your IFTTT recipe
 WATCHED_TAG = "" 
@@ -113,9 +113,9 @@ def post_to_blog(content, date):
 for IFTTT_PATH in IFTTT_PATHS:
     file_list = [f for f in os.listdir(IFTTT_PATH) if f.endswith('.txt')]
     
-    # Exit if there are no text files
+    # Keep going if there are no text files
     if not file_list:
-        sys.exit(0)
+        continue
 
     for text_file in file_list:
         f = open(os.path.join(IFTTT_PATH, text_file), 'r+')
@@ -132,8 +132,11 @@ for IFTTT_PATH in IFTTT_PATHS:
             else:
                 name = DEFAULT_AUTHOR.title()
 
-        # Remove this if you want to keep the tag in the actual Instagram comment
-        caption = caption.replace(WATCHED_TAG, '')
+        # Skips the post if the watched tag isn't in the caption.
+        if WATCHED_TAG and WATCHED_TAG not in caption:
+            continue
+        else:
+            caption = caption.replace(WATCHED_TAG, '')
 
         POST_CONTENT = POST_TEXT % (
                                     created_at,
